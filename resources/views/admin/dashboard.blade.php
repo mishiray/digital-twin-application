@@ -84,7 +84,7 @@
                                         <div class="icon icon-shape icon-sm bg-white text-center border-radius-md mb-3">
                                             <i class="ni ni-camera-compact text-dark opacity-10"></i>
                                         </div>
-                                        <h5 class="text-white mb-1">Get started with Argon</h5>
+                                        <h5 class="text-white mb-1">Get started with Digital Twin Framework</h5>
                                         <p>There’s nothing I really wanted to do in life that I wasn’t able to get good
                                             at.</p>
                                     </div>

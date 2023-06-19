@@ -1,6 +1,6 @@
 @extends('layouts.admin_app')
 @section('title')
-    Telemetry
+    Digital Twin Analysis
 @endsection
 @section('content')
     <main class="main-content position-relative border-radius-lg ">
@@ -13,7 +13,7 @@
                     <div class="col-auto my-auto">
                         <div class="h-100">
                             <h5 class="mb-1">
-                                {{ $device->name }}
+                                {{ $device->name }} Analysis
                             </h5>
                         </div>
                     </div>
@@ -46,40 +46,6 @@
                 </div>
             </div>
         </div>
-        <div class="container-fluid py-4">
-            <div class="row mt-4">
-                <div class="col-lg-7 mb-lg-0 mb-4">
-                    <div class="card z-index-2 h-100">
-                        <div class="card-header pb-0 pt-3 bg-transparent">
-                            <h6 class="text-capitalize">General Status</h6>
-                            <p class="text-sm mb-0">
-                                <i class="fa fa-arrow-up text-success"></i>
-                                <span class="font-weight-bold" id="iotDeviceSpan">4% more</span>
-                            </p>
-                        </div>
-                        <div class="card-body p-3">
-                            <div class="chart">
-                                <canvas id="general-status" class="chart-canvas" height="300"></canvas>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="container-fluid py-4">
-            <div class="row mt-4">
-                <div class="col-lg-12 mb-lg-0 mb-4">
-                    <div class="card z-index-2 h-100">
-                        <div class="card-header pb-0 pt-3 bg-transparent">
-                            <h6 class="text-capitalize">Camera Sensor</h6>
-                        </div>
-                        <div class="container" style="max-height: 1500px; overflow-y:auto">
-                            <div id="img-holder" class="row">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
         <div class="container-fluid py-4">
             <div class="row">
@@ -99,7 +65,7 @@
                                                 Timestamp</th>
                                             <th
                                                 class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">
-                                                Log</th>
+                                                Performance</th>
                                         </tr>
                                     </thead>
                                     <tbody id="table_body">
@@ -125,7 +91,7 @@
             let dateTo = $('#dateTo').val();
             let deviceId = $('#deviceId').val();
             $.ajax({
-                url: `{{ env('API_URL') }}Telemetries/get-all?iOTDeviceId=${deviceId}&startDate=${dateFrom}&endDate=${dateTo}`,
+                url: `{{ env('API_URL') }}DigitalTwins/get-all?iOTDeviceId=${deviceId}&startDate=${dateFrom}&endDate=${dateTo}`,
                 type: 'GET',
                 data: null,
                 headers: {
@@ -136,11 +102,7 @@
                 success: function(response) {
                     document.getElementById('loader').style.display = 'none';
                     telemetryData = response.data;
-                    loadUp();
                     fillTable();
-                    if (telemetryData.cameraSensor !== null) {
-                        loadVideo();
-                    }
                 },
                 error: function(xhr, status, error) {
                     document.getElementById('loader').style.display = 'none';
@@ -153,104 +115,6 @@
         });
 
         let fillDeviceInfo = null;
-
-        function loadUp() {
-            let chartStatus = Chart.getChart("general-status"); // <canvas> id
-            if (chartStatus != undefined) {
-                chartStatus.destroy();
-            }
-
-            if (telemetryData != null) {
-                fillDeviceInfo = telemetryData.map(e => ({
-                    label: e.timeStamp,
-                    tension: 0.4,
-                    borderWidth: 0,
-                    pointRadius: 2,
-                    pointBackgroundColor: "#" + Math.floor(Math.random() * 16777215).toString(16),
-                    borderColor: "#" + Math.floor(Math.random() * 16777215).toString(16),
-                    borderWidth: 3,
-                    backgroundColor: gradientStroke1,
-                    data: [e.deviceStatus.operationalStatus, e.deviceStatus.powerStatus,
-                        e.deviceStatus.maintenanceStatus, e.deviceStatus.performanceStatus,
-                        e.deviceStatus.healthStatus, e.deviceStatus.configurationStatus
-                    ],
-                    maxBarThickness: 6
-                }));
-            }
-            $('#iotDeviceSpan').html(`${telemetryData.length} records`);
-            var fullDev = document.getElementById("general-status").getContext("2d");
-            var gradientStroke1 = fullDev.createLinearGradient(0, 230, 0, 50);
-            gradientStroke1.addColorStop(1, 'rgba(94, 114, 228, 0.2)');
-            gradientStroke1.addColorStop(0.2, 'rgba(94, 114, 228, 0.0)');
-            gradientStroke1.addColorStop(0, 'rgba(94, 114, 228, 0)');
-
-            var gradientStroke2 = fullDev.createLinearGradient(0, 230, 0, 50);
-            gradientStroke2.addColorStop(1, 'rgba(20,23,39,0.2)');
-            gradientStroke2.addColorStop(0.2, 'rgba(72,72,176,0.0)');
-            gradientStroke2.addColorStop(0, 'rgba(20,23,39,0)');
-            var myChart = new Chart(fullDev, {
-                type: "line",
-                data: {
-                    labels: ["Operational", "Power", "Maintenace", "Performance", "Health", "Configuraation"],
-                    datasets: fillDeviceInfo,
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            display: false,
-                        }
-                    },
-                    interaction: {
-                        intersect: false,
-                        mode: 'index',
-                    },
-                    scales: {
-                        y: {
-                            grid: {
-                                drawBorder: false,
-                                display: true,
-                                drawOnChartArea: true,
-                                drawTicks: false,
-                                borderDash: [5, 5]
-                            },
-                            ticks: {
-                                display: true,
-                                padding: 10,
-                                color: '#b2b9bf',
-                                font: {
-                                    size: 11,
-                                    family: "Open Sans",
-                                    style: 'normal',
-                                    lineHeight: 2
-                                },
-                            }
-                        },
-                        x: {
-                            grid: {
-                                drawBorder: false,
-                                display: true,
-                                drawOnChartArea: true,
-                                drawTicks: true,
-                                borderDash: [5, 5]
-                            },
-                            ticks: {
-                                display: true,
-                                color: '#b2b9bf',
-                                padding: 10,
-                                font: {
-                                    size: 11,
-                                    family: "Open Sans",
-                                    style: 'normal',
-                                    lineHeight: 2
-                                },
-                            }
-                        },
-                    },
-                },
-            });
-        }
 
         function fillTable() {
             var tableData = '';

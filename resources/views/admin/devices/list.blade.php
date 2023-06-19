@@ -67,9 +67,19 @@
                                                                 aria-hidden="true"></i>Edit</a>
 
                                                         <a class="btn loader-link btn-link text-dark px-3 mb-0"
+                                                            href="{{ route('devices.relationship', $item->id) }}"><i
+                                                                class="fas fa-pencil-alt text-dark me-2"
+                                                                aria-hidden="true"></i>Relationship</a>
+
+                                                        <a class="btn loader-link btn-link text-dark px-3 mb-0"
                                                             href="{{ route('devices.logs', $item->id) }}"><i
                                                                 class="fas fa-chart-bar text-dark me-2"
                                                                 aria-hidden="true"></i>Logs</a>
+
+                                                        <a class="btn loader-link btn-link text-dark px-3 mb-0"
+                                                            href="{{ route('devices.analysis', $item->id) }}"><i
+                                                                class="fas fa-chart-pie text-dark me-2"
+                                                                aria-hidden="true"></i>Analysis</a>
                                                     </td>
                                                 </tr>
                                             @endforeach

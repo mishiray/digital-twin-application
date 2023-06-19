@@ -67,7 +67,7 @@
                         Copyright ©
                         <script>
                             document.write(new Date().getFullYear())
-                        </script> <br> Mishael Abiola <br> 170805523
+                        </script> <br> Final Project
                     </p>
                 </div>
             </div>
@@ -191,6 +191,5 @@
                 );
             }
         });
-
     </script>
 @endsection

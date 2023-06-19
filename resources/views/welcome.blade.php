@@ -11,7 +11,7 @@
                         <div class="col-xl-8 col-lg-8 col-md-8 d-flex flex-column mx-lg-0 mx-auto">
                             <div class="card card-plain">
                                 <div class="card-header pb-0 text-start">
-                                    <h1 class="font-weight-bolder">Resource Manager Login</h1>
+                                    <h1 class="font-weight-bolder">Digital Twin Manager Login</h1>
                                 </div>
                             </div>
                         </div>

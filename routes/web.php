@@ -28,7 +28,9 @@ Route::get('/dashboard/profile', [UserController::class, 'show'])->name('profile
 Route::get('/dashboard/devices', [DeviceController::class, 'index'])->name('devices');
 Route::get('/dashboard/devices/create', [DeviceController::class, 'create'])->name('devices.create');
 Route::get('/dashboard/devices/{id}', [DeviceController::class, 'show'])->name('devices.show');
+Route::get('/dashboard/devices/{id}/relationship', [DeviceController::class, 'relationship'])->name('devices.relationship');
 Route::get('/dashboard/devices/{id}/logs', [DeviceController::class, 'telemetryLogs'])->name('devices.logs');
+Route::get('/dashboard/devices/{id}/analysis', [DeviceController::class, 'analysis'])->name('devices.analysis');
 Route::post('/dashboard/devices/{id}/update', [DeviceController::class, 'update'])->name('devices.update');
 Route::post('/dashboard/devices/store', [DeviceController::class, 'store'])->name('devices.store');
 Route::get('/register', [WebPageController::class, 'register'])->name('register');

@@ -29,6 +29,7 @@ class DeviceController extends Controller
     public function show($id)
     {
         $device = $this->deviceService->getById($id);
+        // dd($device);
         if ($device == null) {
             return redirect()->route('devices')->with('error', 'Device not found');
         }
@@ -47,6 +48,21 @@ class DeviceController extends Controller
             ->with('device_data', $device_data)
             ->with('device_list', $device_list)
             ->with('iotSubDevices', $iotSubDevices);
+    }
+
+    public function relationship($id)
+    {
+        $device = $this->deviceService->getById($id);
+        $deviceRelationships = $this->deviceService->getRelationships($id);
+        // dd($deviceRelationships);
+
+        if ($device == null) {
+            return redirect()->route('devices')->with('error', 'Device not found');
+        }
+        return view('admin.devices.relationship')
+            ->with('user', session('user'))
+            ->with('device', $device)
+            ->with('deviceRelationships', $deviceRelationships);
     }
 
     public function create()
@@ -115,6 +131,18 @@ class DeviceController extends Controller
         }
 
         return view('admin.telemetry.logs')
+            ->with('user', session('user'))
+            ->with('device', $device);
+    }
+
+    public function analysis($id)
+    {
+        $device = $this->deviceService->getById($id);
+        if ($device == null) {
+            return redirect()->route('devices')->with('error', 'Device not found');
+        }
+
+        return view('admin.digitaltwin.analysis')
             ->with('user', session('user'))
             ->with('device', $device);
     }

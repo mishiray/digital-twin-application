@@ -301,9 +301,37 @@ class DeviceServices
             return redirect()->back()->with('error', $error_array);
         }
     }
+
     public function getTelemetry($deviceId, Request $request)
     {
         $url = $this->api_url . "Telemetries/get-all?iotDeviceId=$deviceId&startDate=$request->startDate&endDate=$request->endDate";
+        $token = session('token');
+        $client = new Client();
+        $options = [
+            'headers' => [
+                'Accept'       => 'application/json',
+                'Content-Type' => 'application/json',
+                'Authorization' => "Bearer $token"
+            ],
+            'verify'  => false
+        ];
+        //throws various exceptions:
+        try {
+            $result = $client->request('GET', $url, $options);
+            $body = json_decode($result->getBody());
+            return $body->data;
+        } catch (ConnectionException $e) {
+            dd($e);
+            return redirect()->back()->with('error', "Unable to connect to middleware");
+        } catch (ClientException $e) {
+            dd($e);
+            return redirect()->back()->with('error', 'Cannot fetch resources');
+        }
+    }
+
+    public function getRelationships($deviceId)
+    {
+        $url = $this->api_url . "DeviceRelationships/get-all?iotDeviceId=$deviceId";
         $token = session('token');
         $client = new Client();
         $options = [
