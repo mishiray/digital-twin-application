@@ -135,9 +135,9 @@
             if (deviceReactions != null && deviceReactions.length > 0) {
                 let reaction = '';
                 deviceReactions.forEach(e => {
-                    reaction += `<p>Device Name: ${e.deviceName} </p>
-                                    <p>Working Properly: ${e.workingProperly} </p>
-                                    <p>Errors: ${e.errors.toString()} </p>`;
+                    reaction += `Device Name: ${e.deviceName} <br>
+                                 Working Properly: ${e.workingProperly} <br>
+                                 Errors: ${e.errors.toString()} <br>`;
                 });
                 return reaction;
             }
@@ -151,39 +151,50 @@
             telemetryData.forEach(e => {
                 let content = '';
                 let tableRowBegin = '<tr><td class="align-middle text-center text-sm"><h6 class="mb-0 text-sm">' + e
-                    .timestamp + '</h6></td><td class="align-middle  text-sm">';
+                    .timestamp + '</h6></td>';
 
                 if (e.dhT11SensorData != null) {
-                    content += '<h6 class="mb-0 text-sm"> ' + e.dhT11SensorData.deviceName +
+                    content += '<td class="align-middle  text-sm"><h6 class="mb-0 text-sm"> ' + e.dhT11SensorData
+                        .deviceName +
                         ' <br/>Device Status ' + resolveDeviceStatus(e.dhT11SensorData.deviceStatus) +
-                        ' <br/>Reactions ' + resolveReactions(e.dhT11SensorData.reactions) + ' </h6> ';
+                        ' <br/>Reactions ' + resolveReactions(e.dhT11SensorData.reactions) + ' </h6> </td>';
                 }
-                // if (e.ultrasonicSensorData != null) {
-                //     content += '<h6 class="mb-0 text-sm"> Ultrasonic Sensor: Distance => ' + e.ultrasonicSensorData
-                //         .distance +
-                //         ', Duration => ' + e.ultrasonicSensorData.duration + '</h6> ';
-                // }
-                // if (e.ledSensorData != null) {
-                //     content += '<h6 class="mb-0 text-sm"> Led Sensor: Is On => ' + e.ledSensorData
-                //         .isOn + '</h6> ';
-                // }
-                // if (e.lightSensorData != null) {
-                //     content += '<h6 class="mb-0 text-sm"> Light Sensor: Value => ' + e.lightSensorData
-                //         .value + '</h6> ';
-                // }
-                // if (e.motionSensorData != null) {
-                //     content += '<h6 class="mb-0 text-sm"> Motion Sensor: Motion Detected => ' + e.motionSensorData
-                //         .motionDetected + '</h6> ';
-                // }
-                // if (e.gpsData != null) {
-                //     content += '<h6 class="mb-0 text-sm"> GPS Sensor: Longitude => ' + e.gpsData
-                //         .longitude +
-                //         ', Latitude => ' + e.gpsData.latitude + '</h6> ';
-                // }
-                // if (e.cameraSensor != null) {
-                //     videoSensor +=
-                //         `<div class="col"><img style="width:240px; height:180px" class="img-cap" src="data:image/png;base64,${e.cameraSensor.data}" alt="Base64 Image"></div>`
-                // }
+                if (e.ultrasonicSensorData != null) {
+                    content += '<td class="align-middle  text-sm"><h6 class="mb-0 text-sm"> ' + e
+                        .ultrasonicSensorData.deviceName +
+                        ' <br/>Device Status ' + resolveDeviceStatus(e.ultrasonicSensorData.deviceStatus) +
+                        ' <br/>Reactions ' + resolveReactions(e.ultrasonicSensorData.reactions) + ' </h6> </td>';
+                }
+                if (e.ledSensorData != null) {
+                    content += '<td class="align-middle  text-sm"><h6 class="mb-0 text-sm"> ' + e
+                        .ledSensorData.deviceName +
+                        ' <br/>Device Status ' + resolveDeviceStatus(e.ledSensorData.deviceStatus) +
+                        ' <br/>Reactions ' + resolveReactions(e.ledSensorData.reactions) + ' </h6> </td>';
+                }
+                if (e.lightSensorData != null) {
+                    content += '<td class="align-middle  text-sm"><h6 class="mb-0 text-sm"> ' + e
+                        .lightSensorData.deviceName +
+                        ' <br/>Device Status ' + resolveDeviceStatus(e.lightSensorData.deviceStatus) +
+                        ' <br/>Reactions ' + resolveReactions(e.lightSensorData.reactions) + ' </h6> </td>';
+                }
+                if (e.motionSensorData != null) {
+                    content += '<td class="align-middle  text-sm"><h6 class="mb-0 text-sm"> ' + e
+                        .motionSensorData.deviceName +
+                        ' <br/>Device Status ' + resolveDeviceStatus(e.motionSensorData.deviceStatus) +
+                        ' <br/>Reactions ' + resolveReactions(e.motionSensorData.reactions) + ' </h6> </td>';
+                }
+                if (e.gpsData != null) {
+                    content += '<td class="align-middle  text-sm"><h6 class="mb-0 text-sm"> ' + e
+                        .gpsData.deviceName +
+                        ' <br/>Device Status ' + resolveDeviceStatus(e.gpsData.deviceStatus) +
+                        ' <br/>Reactions ' + resolveReactions(e.gpsData.reactions) + ' </h6> </td>';
+                }
+                if (e.cameraSensor != null) {
+                    content += '<td class="align-middle  text-sm"><h6 class="mb-0 text-sm"> ' + e
+                        .cameraSensor.deviceName +
+                        ' <br/>Device Status ' + resolveDeviceStatus(e.cameraSensor.deviceStatus) +
+                        ' <br/>Reactions ' + resolveReactions(e.cameraSensor.reactions) + ' </h6> </td>';
+                }
                 let tableEnd = '</td > </tr>';
 
                 tableData += tableRowBegin + content + tableEnd;
