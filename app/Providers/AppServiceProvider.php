@@ -21,8 +21,8 @@ class AppServiceProvider extends ServiceProvider
     {
         view()->composer('*', function ($view) {
             $view->with([
-                'admin_source' => url('/') . env('ASSET_URL') . '/admins',
-                'web_source' => url('/') . env('ASSET_URL'),
+                'admin_source' => url('/', null, true) . env('ASSET_URL') . '/admins',
+                'web_source' => url('/', null, true) . env('ASSET_URL'),
             ]);
         });
     }
