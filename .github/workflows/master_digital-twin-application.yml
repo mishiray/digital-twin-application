@@ -56,5 +56,5 @@ jobs:
         with:
           app-name: 'digital-twin-application'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_57D3FC9452D8497CBB244FA4A9C90F15 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_6B5A626192384B16BC93DBE15A38C923 }}
           package: .
