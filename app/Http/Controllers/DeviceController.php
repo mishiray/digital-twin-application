@@ -67,6 +67,8 @@ class DeviceController extends Controller
 
     public function create()
     {
+        // $token_data = $this->deviceService->generateToken('768d276f-5ced-49f4-ad1e-ad82db066f10');
+        // dd($token_data);
         $device_list = $this->deviceService->listAllComponents();
         $device_data = new stdClass();
         $device_data->types = $this->deviceService->getDeviceTypes();
@@ -114,11 +116,14 @@ class DeviceController extends Controller
         }
 
         $request['iotSubDevices'] = $subDeviceArray;
+        // dd($request);
         $result = $this->deviceService->create($request);
+        // dd($result);
         if ($result != null) {
             $token_data = $this->deviceService->generateToken($result->id);
+            // dd($result, $token_data);
             session(['token_data', $token_data]);
-            return redirect()->route('devices.create')->with('message', 'Device Created successfully');
+            return redirect()->route('devices.create')->with('message', 'Device Created successfully')->with('token_data', $token_data);
         }
         return redirect()->route('devices.create')->with('message', 'Device Created successfully');
     }

@@ -31,10 +31,12 @@
                             </div>
                         </div>
                         @if ($token_data)
-                            <h2>Please copy your token below</h2>
-                            <p>Token: {{ $token_data->token }}</p>
-                            <p>Device Id: {{ $token_data->deviceId }}</p>
-                            <p>Expiry: {{ $token_data->expiresAt }}</p>
+                            <div class="m-4 p-4">
+                                <h3>Please copy your token below</h3>
+                                <p><strong>Token:</strong> {{ $token_data->token }}</p>
+                                <p><strong>Device Id:</strong> {{ $token_data->iotDeviceId }}</p>
+                                <p><strong>Expiry:</strong> {{ $token_data->expiresAt }}</p>
+                            </div>
                         @else
                             <form action="{{ route('devices.store') }}" method="post">
                                 @csrf @method('POST')
@@ -49,8 +51,9 @@
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
-                                                <label for="example-text-input" class="form-control-label">Devuce Id</label>
-                                                <input class="form-control" name="deviceId" type="text" value="">
+                                                <label for="example-text-input" class="form-control-label">Device Id</label>
+                                                <input class="form-control" required name="deviceId" type="text"
+                                                    value="">
                                             </div>
                                         </div>
                                     </div>
@@ -93,7 +96,8 @@
                                                     <option>None</option>
                                                     @if (count($device_data->sensor_types) > 0)
                                                         @foreach ($device_data->sensor_types as $item)
-                                                            <option value="{{ $loop->index }}">{{ $item }}</option>
+                                                            <option value="{{ $loop->index }}">{{ $item }}
+                                                            </option>
                                                         @endforeach
                                                     @endif
                                                 </select>

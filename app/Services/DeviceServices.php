@@ -141,6 +141,7 @@ class DeviceServices
             'iotConfigType' => (int)$request->iotConfigType,
             'iotSubDevices' => $request->iotSubDevices,
         ];
+        // dd($payload);
         $url = $this->api_url . "Devices/create";
         $token = session('token');
         $client = new Client();
