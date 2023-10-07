@@ -1,12 +1,12 @@
  <!--     Fonts and icons     -->
  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
  <!-- Nucleo Icons -->
- <link href="{{ $web_source }}/assets/css/nucleo-icons.css" rel="stylesheet" />
- <link href="{{ $web_source }}/assets/css/nucleo-svg.css" rel="stylesheet" />
+ <link href="{{ env('APP_URL') }}/assets/css/nucleo-icons.css" rel="stylesheet" />
+ <link href="{{ env('APP_URL') }}/assets/css/nucleo-svg.css" rel="stylesheet" />
  <!-- Font Awesome Icons -->
- <link href="{{ $web_source }}/assets/css/nucleo-svg.css" rel="stylesheet" />
+ <link href="{{ env('APP_URL') }}/assets/css/nucleo-svg.css" rel="stylesheet" />
  <!-- CSS Files -->
- <link id="pagestyle" href="{{ $web_source }}/assets/css/argon-dashboard.css?v=2.0.4" rel="stylesheet" />
+ <link id="pagestyle" href="{{ env('APP_URL') }}/assets/css/argon-dashboard.css?v=2.0.4" rel="stylesheet" />
  <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.0/css/toastr.css" rel="stylesheet" />
 
  <style>
