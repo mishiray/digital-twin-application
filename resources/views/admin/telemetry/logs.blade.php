@@ -66,7 +66,7 @@
                 </div>
             </div>
         </div>
-        <div class="container-fluid py-4">
+        <div class="container-fluid d-none py-4">
             <div class="row mt-4">
                 <div class="col-lg-12 mb-lg-0 mb-4">
                     <div class="card z-index-2 h-100">
@@ -287,8 +287,11 @@
                         ', Latitude => ' + e.gpsData.latitude + '</h6> ';
                 }
                 if (e.cameraSensor != null) {
-                    videoSensor +=
-                        `<div class="col"><img style="width:240px; height:180px" class="img-cap" src="data:image/png;base64,${e.cameraSensor.data}" alt="Base64 Image"></div>`
+
+                    content +=
+                        `</td>
+                         <tdoh class="align-middle  text-sm>
+                            <h6 class="mb-0 text-sm"><img style="width:240px; height:180px" class="img-cap" src="data:image/png;base64,${e.cameraSensor.data}" alt="Base64 Image"></h6>`
                 }
                 let tableEnd = '</td > </tr>';
 
