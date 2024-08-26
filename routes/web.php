@@ -31,6 +31,7 @@ Route::get('/dashboard/devices/{id}', [DeviceController::class, 'show'])->name('
 Route::get('/dashboard/devices/{id}/relationship', [DeviceController::class, 'relationship'])->name('devices.relationship');
 Route::get('/dashboard/devices/{id}/logs', [DeviceController::class, 'telemetryLogs'])->name('devices.logs');
 Route::get('/dashboard/devices/{id}/analysis', [DeviceController::class, 'analysis'])->name('devices.analysis');
+Route::get('/dashboard/devices/{id}/stream', [DeviceController::class, 'stream'])->name('devices.stream');
 Route::post('/dashboard/devices/{id}/update', [DeviceController::class, 'update'])->name('devices.update');
 Route::post('/dashboard/devices/store', [DeviceController::class, 'store'])->name('devices.store');
 Route::get('/register', [WebPageController::class, 'register'])->name('register');

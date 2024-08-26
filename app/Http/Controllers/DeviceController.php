@@ -151,4 +151,16 @@ class DeviceController extends Controller
             ->with('user', session('user'))
             ->with('device', $device);
     }
+
+    public function stream($id)
+    {
+        $device = $this->deviceService->getById($id);
+        if ($device == null) {
+            return redirect()->route('devices')->with('error', 'Device not found');
+        }
+
+        return view('admin.digitaltwin.stream')
+            ->with('user', session('user'))
+            ->with('device', $device);
+    }
 }

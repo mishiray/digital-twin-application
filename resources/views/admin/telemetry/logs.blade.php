@@ -46,7 +46,7 @@
                 </div>
             </div>
         </div>
-        <div class="container-fluid py-4">
+        <div class="container-fluid d-none py-4">
             <div class="row mt-4">
                 <div class="col-lg-7 mb-lg-0 mb-4">
                     <div class="card z-index-2 h-100">
@@ -66,12 +66,12 @@
                 </div>
             </div>
         </div>
-        <div class="container-fluid d-none py-4">
+        <div id="video_stream" class="container-fluid d-none py-4">
             <div class="row mt-4">
                 <div class="col-lg-12 mb-lg-0 mb-4">
                     <div class="card z-index-2 h-100">
                         <div class="card-header pb-0 pt-3 bg-transparent">
-                            <h6 class="text-capitalize">Camera Sensor</h6>
+                            <h6 class="text-capitalize">Video Stream</h6>
                         </div>
                         <div class="container" style="max-height: 1500px; overflow-y:auto">
                             <div id="img-holder" class="row">
@@ -136,7 +136,7 @@
                 success: function(response) {
                     document.getElementById('loader').style.display = 'none';
                     telemetryData = response.data;
-                    loadUp();
+                    //loadUp();
                     fillTable();
                     if (telemetryData.cameraSensor !== null) {
                         loadVideo();
@@ -153,6 +153,11 @@
         });
 
         let fillDeviceInfo = null;
+        let hasVideo = false;
+        const videoSensorArray = [];
+        var videoSensor =   `<video id="videoPlayer" width="640" height="360" controls>
+                                    Your browser does not support the video tag.
+                                </video>`;
 
         function loadUp() {
             let chartStatus = Chart.getChart("general-status"); // <canvas> id
@@ -254,8 +259,8 @@
 
         function fillTable() {
             var tableData = '';
-            var videoSensor = '';
             telemetryData.forEach(e => {
+                console.log(e);
                 let content = '';
                 let tableRowBegin = '<tr><td class="align-middle text-center text-sm"><h6 class="mb-0 text-sm">' + e
                     .timeStamp + '</h6></td><td class="align-middle  text-sm">';
@@ -282,29 +287,49 @@
                         .motionDetected + '</h6> ';
                 }
                 if (e.gpsData != null) {
-                    content += '<h6 class="mb-0 text-sm"> GPS Sensor: Longitude => ' + e.gpsData
-                        .longitude +
+                    content += '<h6 class="mb-0 text-sm"> GPS Sensor: Loction => ' + e.gpsData.location +
+                        ', Longitude => ' + e.gpsData.longitude +
                         ', Latitude => ' + e.gpsData.latitude + '</h6> ';
                 }
                 if (e.cameraSensor != null) {
-
                     content +=
                         `</td>
-                         <tdoh class="align-middle  text-sm>
+                         <td class="align-middle  text-sm>
                             <h6 class="mb-0 text-sm"><img style="width:240px; height:180px" class="img-cap" src="data:image/png;base64,${e.cameraSensor.data}" alt="Base64 Image"></h6>`
+                }
+                if(e.videoSensor != null){
+                    hasVideo = true;
+                    videoSensorArray.push(e.videoSensor.data);
                 }
                 let tableEnd = '</td > </tr>';
 
                 tableData += tableRowBegin + content + tableEnd;
             });
             $('#table_body').html(tableData);
-            if (videoSensor) {
-                $('#img-holder').html(videoSensor);
-            }
         };
 
         function loadVideo() {
-            var base64Video = "";
+            if (hasVideo) {
+                $('#video_stream').removeClass('d-none');
+                $('#img-holder').html(videoSensor);
+            }
+
+            const videoPlayer = document.getElementById('videoPlayer');
+            let currentVideoIndex = 0;
+
+            // Load the first video
+            videoPlayer.src = videoSensorArray[currentVideoIndex];
+            videoPlayer.load();
+
+            // Event listener for when the video ends
+            videoPlayer.addEventListener('ended', () => {
+                currentVideoIndex++;
+                if (currentVideoIndex < videoSensorArray.length) {
+                    videoPlayer.src = videoSensorArray[currentVideoIndex];
+                    videoPlayer.load();
+                    videoPlayer.play();
+                }
+            });
         }
     </script>
 @endsection

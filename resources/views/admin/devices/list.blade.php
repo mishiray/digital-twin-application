@@ -80,6 +80,12 @@
                                                             href="{{ route('devices.analysis', $item->id) }}"><i
                                                                 class="fas fa-chart-pie text-dark me-2"
                                                                 aria-hidden="true"></i>Analysis</a>
+
+
+                                                                <a class="btn loader-link btn-link text-dark px-3 mb-0"
+                                                                href="{{ route('devices.stream', $item->id) }}"><i
+                                                                    class="fas fa-chart-pie text-dark me-2"
+                                                                    aria-hidden="true"></i>Stream</a>
                                                     </td>
                                                 </tr>
                                             @endforeach

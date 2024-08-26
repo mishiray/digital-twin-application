@@ -8,6 +8,7 @@
  <!-- CSS Files -->
  <link id="pagestyle" href="{{ env('APP_URL') }}/assets/css/argon-dashboard.css?v=2.0.4" rel="stylesheet" />
  <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.0/css/toastr.css" rel="stylesheet" />
+ <link href="https://vjs.zencdn.net/7.19.2/video-js.css" rel="stylesheet" />
 
  <style>
      .error {
